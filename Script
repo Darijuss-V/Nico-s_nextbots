@@ -1,0 +1,327 @@
+
+
+
+--yes this is skidded i just had nothing to do so i put this toghether and tried to remember links to skidded portions of the script PS:I'm 12 so dont hate on me iv'e been scripting for like 2 years
+--last update: 8/2/2022
+
+
+
+
+if game.PlaceId == 10118559731 then
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+Title = "Made by:";
+Text = "Darijus#1071"
+})
+StarterGui:SetCore("SendNotification", {
+Title = "Made by:";
+Text = "Darijus#1071"
+})
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Nico's Nextbots scrept", "Sentinel")
+local Main = Window:NewTab("LocalPlayer")
+local ShitSection = Main:NewSection("Stuff for u")
+ShitSection:NewButton("Quick reset (R)", "kill u fest boi", function(v)
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
+            if not gameProcessedEvent then
+                if input.UserInputType == Enum.UserInputType.Keyboard then
+                    if input.KeyCode == Enum.KeyCode.R then
+                        keypress(0x1B) wait()
+                        keyrelease(0x1B) wait()
+                        game:GetService("ReplicatedStorage").events.respawnchar:FireServer()
+                        keypress(0x1B) wait()
+                        keyrelease(0x1B)
+                    end
+                end
+            else
+                local skip
+            end
+        end)
+end)
+ShitSection:NewButton("Speed", "Be faster than soneccc",function(s)--https://v3rmillion.net/showthread.php?tid=1151324&pid=8125101
+walkSpeed = 75
+
+local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
+local W, A, S, D
+local xVelo, yVelo
+
+RS.RenderStepped:Connect(function()
+   local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+   local C = game.Workspace.CurrentCamera
+   local LV = C.CFrame.LookVector
+   for i,v in pairs(UIS:GetKeysPressed()) do
+       if v.KeyCode == Enum.KeyCode.W then
+           W = true
+       end
+       if v.KeyCode == Enum.KeyCode.A then
+           A = true
+       end
+       if v.KeyCode == Enum.KeyCode.S then
+           S = true
+       end
+       if v.KeyCode == Enum.KeyCode.D then
+           D = true
+       end
+   end
+
+   if W == true and S == true then
+       yVelo = false
+       W,S = nil
+   end
+
+   if A == true and D == true then
+       xVelo = false
+       A,D = nil
+   end
+
+   if yVelo ~= false then
+       if W == true then
+           if xVelo ~= false then
+               if A == true then
+                   local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(45), 0)).LookVector
+                   HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
+                   W,A = nil
+               else
+                   if D == true then
+                       local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-45), 0)).LookVector
+                       HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
+                       W,D = nil
+                   end
+               end
+           end
+       else
+           if S == true then
+               if xVelo ~= false then
+                   if A == true then
+                       local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(135), 0)).LookVector
+                       HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
+                       S,A = nil
+                   else
+                       if D == true then
+                           local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-135), 0)).LookVector
+                           HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
+                           S,D = nil
+                       end
+                   end
+               end
+           end
+       end
+   end
+
+   if W == true then
+       HRP.Velocity = Vector3.new((LV.X * walkSpeed), HRP.Velocity.Y, (LV.Z * walkSpeed))
+   end
+   if S == true then
+       HRP.Velocity = Vector3.new(-(LV.X * walkSpeed), HRP.Velocity.Y, -(LV.Z * walkSpeed))
+   end
+   if A == true then
+       local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(90), 0)).LookVector
+       HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
+   end
+   if D == true then
+       local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-90), 0)).LookVector
+       HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
+   end
+
+   xVelo, yVelo, W, A, S, D = nil
+end)
+end)
+ShitSection:NewSlider("Hip height", "u becom tall", 6, 2, function(s)
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == game.Players.LocalPlayer.Name then
+v.Humanoid.HipHeight = s --max 5.5 min 1.6
+end end
+end)
+ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont remember thread sorry
+    local Player = game:GetService'Players'.LocalPlayer;
+    local UIS = game:GetService'UserInputService';
+    _G.JumpHeight = 50;
+    function Action(Object, Function) if Object ~= nil then Function(Object); end end
+    UIS.InputBegan:connect(function(UserInput)
+        if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+            Action(Player.Character.Humanoid, function(self)
+                if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                    Action(self.Parent.HumanoidRootPart, function(self)
+                        self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                    end)
+                end
+            end)
+        end
+    end)
+end)
+ShitSection:NewButton("Farm spot (to go back press button under)", "idk bro it teleport u", function(v)
+save_CFRAME = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(186.406494140625, 102.73624420166016, 295.02508544921875)
+end)
+ShitSection:NewButton("Go back (Farm)", "idk bro it teleport u", function(v)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = save_CFRAME
+end)
+ShitSection:NewToggle("Safe mode for score unless monster kills u", "auuughhh", function(v)
+player = game.Players.LocalPlayer --https://v3rmillion.net/showthread.php?tid=1179524
+if player.Character.scripts.safe then
+safe = player.Character.scripts.safe
+end
+safe.Parent = nil;
+end)
+local Main2 = Window:NewTab("Game")
+local ShitSection2 = Main2:NewSection("Esp, delete and other stuff")
+ShitSection2:NewToggle("Esp monsters", "magic e-s-p hahahe", function(v)
+_G.bots = v
+_G.bots = false
+if not v then
+for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
+if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end end
+else
+local function contains(table, val)
+   for i=1,#table do
+      if table[i] == val then return true end
+   end
+   return false
+end
+for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
+    if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end
+    local a = Instance.new("BillboardGui",v)
+    a.Name = "ESP"
+    a.Size = UDim2.new(15,0, 13,0)
+    a.AlwaysOnTop = true
+    local b = Instance.new("Frame",a)
+    b.Size = UDim2.new(1,0, 1,0)
+    b.BackgroundTransparency = 0.90
+    b.BorderSizePixel = 0
+    b.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    local c = Instance.new('TextLabel',b)
+    c.Size = UDim2.new(1,1,0,1)
+    c.BorderSizePixel = 0
+    c.TextSize = 15
+    c.Text = v.Name
+    c.BackgroundTransparency = 1
+    c.TextColor3 = Color3.fromRGB(255, 255, 255)
+    c.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    c.TextStrokeTransparency = 0.7
+end
+end
+end)
+--[[ dont look here
+sukanikadig
+]]
+ShitSection2:NewButton("Delete doors", "magic hahahe", function(v)
+game:GetService("Workspace").doors:Destroy() end)
+ShitSection2:NewButton("Delete garage doors", "magic hahahe", function(v)
+for i,v in pairs(game.Workspace:GetDescendants()) do
+    if v.Name == 'garage' then
+    v:Destroy()
+end end end)
+ShitSection2:NewToggle("FullBright", "magic hahahe", function(v)--https://v3rmillion.net/showthread.php?tid=886276
+if not _G.FullBrightExecuted then
+
+	_G.FullBrightEnabled = false
+
+	_G.NormalLightingSettings = {
+		Brightness = game:GetService("Lighting").Brightness,
+		ClockTime = game:GetService("Lighting").ClockTime,
+		FogEnd = game:GetService("Lighting").FogEnd,
+		GlobalShadows = game:GetService("Lighting").GlobalShadows,
+		Ambient = game:GetService("Lighting").Ambient
+	}
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("Brightness"):Connect(function()
+		if game:GetService("Lighting").Brightness ~= 1 and game:GetService("Lighting").Brightness ~= _G.NormalLightingSettings.Brightness then
+			_G.NormalLightingSettings.Brightness = game:GetService("Lighting").Brightness
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").Brightness = 1
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("ClockTime"):Connect(function()
+		if game:GetService("Lighting").ClockTime ~= 12 and game:GetService("Lighting").ClockTime ~= _G.NormalLightingSettings.ClockTime then
+			_G.NormalLightingSettings.ClockTime = game:GetService("Lighting").ClockTime
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").ClockTime = 12
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("FogEnd"):Connect(function()
+		if game:GetService("Lighting").FogEnd ~= 786543 and game:GetService("Lighting").FogEnd ~= _G.NormalLightingSettings.FogEnd then
+			_G.NormalLightingSettings.FogEnd = game:GetService("Lighting").FogEnd
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").FogEnd = 786543
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("GlobalShadows"):Connect(function()
+		if game:GetService("Lighting").GlobalShadows ~= false and game:GetService("Lighting").GlobalShadows ~= _G.NormalLightingSettings.GlobalShadows then
+			_G.NormalLightingSettings.GlobalShadows = game:GetService("Lighting").GlobalShadows
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").GlobalShadows = false
+		end
+	end)
+
+	game:GetService("Lighting"):GetPropertyChangedSignal("Ambient"):Connect(function()
+		if game:GetService("Lighting").Ambient ~= Color3.fromRGB(178, 178, 178) and game:GetService("Lighting").Ambient ~= _G.NormalLightingSettings.Ambient then
+			_G.NormalLightingSettings.Ambient = game:GetService("Lighting").Ambient
+			if not _G.FullBrightEnabled then
+				repeat
+					wait()
+				until _G.FullBrightEnabled
+			end
+			game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+		end
+	end)
+
+	game:GetService("Lighting").Brightness = 1
+	game:GetService("Lighting").ClockTime = 12
+	game:GetService("Lighting").FogEnd = 786543
+	game:GetService("Lighting").GlobalShadows = false
+	game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+
+	local LatestValue = true
+	spawn(function()
+		repeat
+			wait()
+		until _G.FullBrightEnabled
+		while wait() do
+			if _G.FullBrightEnabled ~= LatestValue then
+				if not _G.FullBrightEnabled then
+					game:GetService("Lighting").Brightness = _G.NormalLightingSettings.Brightness
+					game:GetService("Lighting").ClockTime = _G.NormalLightingSettings.ClockTime
+					game:GetService("Lighting").FogEnd = _G.NormalLightingSettings.FogEnd
+					game:GetService("Lighting").GlobalShadows = _G.NormalLightingSettings.GlobalShadows
+					game:GetService("Lighting").Ambient = _G.NormalLightingSettings.Ambient
+				else
+					game:GetService("Lighting").Brightness = 1
+					game:GetService("Lighting").ClockTime = 12
+					game:GetService("Lighting").FogEnd = 786543
+					game:GetService("Lighting").GlobalShadows = false
+					game:GetService("Lighting").Ambient = Color3.fromRGB(178, 178, 178)
+				end
+				LatestValue = not LatestValue
+			end
+		end
+	end)
+end
+
+_G.FullBrightExecuted = true
+_G.FullBrightEnabled = not _G.FullBrightEnabled end)
+ShitSection2:NewButton("Infinite yield (for esp all and other stuff)", "magic hahahe", function(v)
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
+end
