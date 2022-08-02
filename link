@@ -1,0 +1,2 @@
+--I made it myself cuz there we're only 2 other scripts that I could find so I just made one myself
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Darijuss-V/Nico-s_nextbots/main/Script'),true))()
