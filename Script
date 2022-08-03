@@ -1,7 +1,7 @@
 
 
 --yes this is skidded i just had nothing to do so i put this toghether and tried to remember links to skidded portions of the script PS:I'm 12 so dont hate on me iv'e been scripting for like 2 years
---last update: 8/2/2022
+--last update: 8/3/2022
 
 
 if game.PlaceId == 10118559731 then
@@ -14,24 +14,6 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Nico's Nextbots scrept | Darijus#1071", "Sentinel")
 local Main = Window:NewTab("LocalPlayer")
 local ShitSection = Main:NewSection("Stuff for u")
-ShitSection:NewButton("Quick reset (R)", "kill u fest boi", function(v)
-local UserInputService = game:GetService("UserInputService")
-UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
-            if not gameProcessedEvent then
-                if input.UserInputType == Enum.UserInputType.Keyboard then
-                    if input.KeyCode == Enum.KeyCode.R then
-                        keypress(0x1B) wait()
-                        keyrelease(0x1B) wait()
-                        game:GetService("ReplicatedStorage").events.respawnchar:FireServer()
-                        keypress(0x1B) wait()
-                        keyrelease(0x1B)
-                    end
-                end
-            else
-                local skip
-            end
-        end)
-end)
 ShitSection:NewButton("Speed", "Be faster than soneccc",function(s)--https://v3rmillion.net/showthread.php?tid=1151324&pid=8125101
 walkSpeed = 75
 
@@ -121,12 +103,18 @@ RS.RenderStepped:Connect(function()
    xVelo, yVelo, W, A, S, D = nil
 end)
 end)
+---------------------------------------------------------------------------
 ShitSection:NewSlider("Hip height", "u becom tall", 6, 2, function(s)
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == game.Players.LocalPlayer.Name then
 v.Humanoid.HipHeight = s --max 5.5 min 1.6
 end end
 end)
+---------------------------------------------------------------------------
+ShitSection:NewSlider("Fov", "zoomie", 121, 1, function(fov)
+game.Players.LocalPlayer.PlayerScripts.options.fov.Value = fov
+end)
+---------------------------------------------------------------------------
 ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont remember thread sorry
     local Player = game:GetService'Players'.LocalPlayer;
     local UIS = game:GetService'UserInputService';
@@ -144,32 +132,50 @@ ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont rem
         end
     end)
 end)
-ShitSection:NewButton("Farm spot (to go back press button under)", "idk bro it teleport u", function(v)
+local otherstuff = Main:NewSection("Other stuff")
+otherstuff:NewButton("Quick reset (R)", "kill u fest boi", function(v)
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
+            if not gameProcessedEvent then
+                if input.UserInputType == Enum.UserInputType.Keyboard then
+                    if input.KeyCode == Enum.KeyCode.R then
+                        keypress(0x1B) wait()
+                        keyrelease(0x1B) wait()
+                        game:GetService("ReplicatedStorage").events.respawnchar:FireServer()
+                        keypress(0x1B) wait()
+                        keyrelease(0x1B)
+                    end
+                end
+            else
+                local skip
+            end
+        end)
+end)
+otherstuff:NewButton("Farm spot (to go back press button under)", "idk bro it teleport u", function(v)
 save_CFRAME = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(186.406494140625, 102.73624420166016, 295.02508544921875)
 end)
-ShitSection:NewButton("Go back (Farm)", "idk bro it teleport u", function(v)
+otherstuff:NewButton("Go back (Farm)", "idk bro it teleport u", function(v)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = save_CFRAME
 end)
-ShitSection:NewButton("Safe mode for score unless monster kills u", "kinda useless", function(v)
-local player = game.Players.LocalPlayer --https://v3rmillion.net/showthread.php?tid=1179524
-local safe = player.Character.scripts.safe
+otherstuff:NewButton("Monster not chase u (only press once)", "kinda useless", function(v)
+player = game.Players.LocalPlayer --https://v3rmillion.net/showthread.php?tid=1179524
+if player.Character.scripts:FindFirstChild('safe') then
+local old_cf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").spawns.mall.SpawnLocation.CFrame
+wait(1)
+safe = player.Character.scripts.safe
 safe.Parent = nil;
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Position = old_cf
+end
 end)
 local Main2 = Window:NewTab("Game")
-local ShitSection2 = Main2:NewSection("Esp, delete and other stuff")
-ShitSection2:NewToggle("Esp players", "magic e-s-p hahahe", function(v)
-if not v then
-for __,v in pairs(game.Workspace:GetChildren()) do
-for i,b in pairs(game.Players:GetChildren()) do
-if b.Name==game.Players.LocalPlayer.Name then local skip else
-if b.Name == v.Name then
-if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end 
-end
-end
-end
-end
-else
+local ShitSection2 = Main2:NewSection("Esp")
+ShitSection2:NewToggle("Player ESP", "magic e-s-p hahahe", function(v)
+_G.player_esp = v
+while _G.player_esp do
+wait(0.1)
 for __,v in pairs(game.Workspace:GetChildren()) do
 for i,b in pairs(game.Players:GetChildren()) do
 if b.Name==game.Players.LocalPlayer.Name then local skip else
@@ -181,25 +187,92 @@ if b.Name == v.Name then
     a.AlwaysOnTop = true
     local b = Instance.new("Frame",a)
     b.Size = UDim2.new(1,0, 1,0)
-    b.BackgroundTransparency = 0.70
+    b.BackgroundTransparency = 0.60
     b.BorderSizePixel = 0
     b.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
     local c = Instance.new('TextLabel',b)
     c.Size = UDim2.new(1,1,0,1)
     c.BorderSizePixel = 0
-    c.TextSize = 10 
+    c.TextSize = 12 
     c.Text = v.Name
     c.BackgroundTransparency = 1
-    c.TextColor3 = Color3.fromRGB(200, 200, 200)
+    c.TextColor3 = Color3.fromRGB(255, 255, 255)
     c.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
     c.TextStrokeTransparency = 0.7
-end end end end end
+end
+end
+end
+end
+end
+
+for __,v in pairs(game.Workspace:GetChildren()) do
+for i,b in pairs(game.Players:GetChildren()) do
+if b.Name==game.Players.LocalPlayer.Name then local skip else
+if b.Name == v.Name then
+if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end 
+end
+end
+end
+end
 end)
-ShitSection2:NewToggle("Esp monsters", "magic e-s-p hahahe", function(v)
-if not v then
-for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
-if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end end
-else
+
+
+
+ShitSection2:NewToggle("Friend ESP", "if u have any", function(v)
+_G.friend_esp = v
+while _G.friend_esp do
+for __,v in pairs(game.Workspace:GetChildren()) do
+for i,b in pairs(game.Players:GetChildren()) do
+if b.Name==game.Players.LocalPlayer.Name then local skip else
+if b.Name == v.Name then
+if b:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+    if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end
+    local a = Instance.new("BillboardGui",v)
+    a.Name = "ESP"
+    a.Size = UDim2.new(3,0, 5,0)
+    a.AlwaysOnTop = true
+    local b = Instance.new("Frame",a)
+    b.Size = UDim2.new(1,0, 1,0)
+    b.BackgroundTransparency = 0.50
+    b.BorderSizePixel = 0
+    b.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+    local c = Instance.new('TextLabel',b)
+    c.Size = UDim2.new(1,1,0,1)
+    c.BorderSizePixel = 0
+    c.TextSize = 15 
+    c.Text = v.Name
+    c.BackgroundTransparency = 1
+    c.TextColor3 = Color3.fromRGB(255, 255, 255)
+    c.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    c.TextStrokeTransparency = 0.7
+end
+end
+end
+end
+end
+wait(0.1)
+end
+
+for __,v in pairs(game.Workspace:GetChildren()) do
+for i,b in pairs(game.Players:GetChildren()) do
+if b.Name==game.Players.LocalPlayer.Name then local skip else
+if b.Name == v.Name then
+if b:IsFriendsWith(game.Players.LocalPlayer.UserId) then
+if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end 
+end
+end
+end
+end
+end
+
+end)
+
+
+
+
+ShitSection2:NewToggle("Monster ESP", "magic e-s-p hahahe", function(v)
+_G.monster_esp = v
+while _G.monster_esp do
 local function contains(table, val)
    for i=1,#table do
       if table[i] == val then return true end
@@ -220,26 +293,35 @@ for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
     local c = Instance.new('TextLabel',b)
     c.Size = UDim2.new(1,1,0,1)
     c.BorderSizePixel = 0
-    c.TextSize = 15
+    c.TextSize = 13
     c.Text = v.Name
     c.BackgroundTransparency = 1
     c.TextColor3 = Color3.fromRGB(255, 255, 255)
     c.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
     c.TextStrokeTransparency = 0.7
 end
+wait(0.1)
 end
+for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
+if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end end
 end)
 --[[ dont look here
 sukanikadig
 ]]
-ShitSection2:NewButton("Delete doors", "magic hahahe", function(v)
-game:GetService("Workspace").doors:Destroy() end)
-ShitSection2:NewButton("Delete garage doors", "magic hahahe", function(v)
+local GameSection2 = Main2:NewSection("Delete stuff and other")
+GameSection2:NewButton("Delete doors", "magic hahahe", function(v)
+game:GetService("Workspace").doors:Destroy() game:GetService("Workspace").junk:Destroy() end)
+GameSection2:NewButton("Delete garage doors", "magic hahahe", function(v)
 for i,v in pairs(game.Workspace:GetDescendants()) do
     if v.Name == 'garage' then
     v:Destroy()
 end end end)
-ShitSection2:NewToggle("FullBright", "magic hahahe", function(v)--https://v3rmillion.net/showthread.php?tid=886276
+GameSection2:NewButton("Lower graphics", "if u run on a potato", function(v)
+for i,v in pairs(game.Workspace:GetDescendants()) do
+if v.ClassName == 'Texture' then v:Destroy() end
+end
+end)
+GameSection2:NewToggle("FullBright", "magic hahahe", function(v)--https://v3rmillion.net/showthread.php?tid=886276
 if not _G.FullBrightExecuted then
 
 	_G.FullBrightEnabled = false
@@ -346,11 +428,12 @@ end
 
 _G.FullBrightExecuted = true
 _G.FullBrightEnabled = not _G.FullBrightEnabled end)
-ShitSection2:NewButton("Infinite yield", "magic hahahe", function(v)
+GameSection2:NewButton("Infinite yield", "magic hahahe", function(v)
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
 end)
 local Main3 = Window:NewTab("Info")
-local ShitSection3 = Main3:NewSection("Made by me aka Darijus#1071")
-local ShitSection3 = Main3:NewSection("Made it in one day so don't hate on me")
-local ShitSection3 = Main3:NewSection("latest update: 8/2/2022")
+local ShitSection3 = Main3:NewSection("Made by Darijus#1071")
+local ShitSection3 = Main3:NewSection("Latest update: 8/3/2022")
+local ShitSection3 = Main3:NewSection("Update: Fixed esp, added other stuff")
+
 end
