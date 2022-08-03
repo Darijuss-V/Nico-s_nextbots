@@ -17,11 +17,12 @@ local ShitSection = Main:NewSection("Stuff for u")
 ShitSection:NewToggle("AutoRun", "bro this so easy",function(v)
 local player = game.Players.LocalPlayer
 local runnin = player.Character.scripts['running']
-if v then
+_G.Autorun = v
+while _G.Autorun do
 runnin.Value = true
-else
-runnin.Value = false
+wait(0.1)
 end
+runnin.Value = false
 end)
 ShitSection:NewButton("Speed", "Be faster than soneccc",function(s)--https://v3rmillion.net/showthread.php?tid=1151324&pid=8125101
 walkSpeed = 75
@@ -454,6 +455,6 @@ end)
 local Main3 = Window:NewTab("Info")
 local ShitSection3 = Main3:NewSection("Made by Darijus#1071")
 local ShitSection3 = Main3:NewSection("Latest update: 8/4/2022")
-local ShitSection3 = Main3:NewSection("Update: Added autorun")
+local ShitSection3 = Main3:NewSection("Update: Fixed autorun")
 
 end
