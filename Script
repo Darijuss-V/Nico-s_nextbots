@@ -14,14 +14,16 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Nico's Nextbots scrept | Darijus#1071", "Sentinel")
 local Main = Window:NewTab("LocalPlayer")
 local ShitSection = Main:NewSection("Stuff for u")
-ShitSection:NewToggle("AutoRun", "bro this so easy",function(v)
-local player = game.Players.LocalPlayer
-local runnin = player.Character.scripts['running']
+ShitSection:NewToggle("AutoRun", "just hold shift lol",function(v)
 _G.Autorun = v
 while _G.Autorun do
+local player = game.Players.LocalPlayer
+local runnin = player.Character.scripts['running']
 runnin.Value = true
-wait(0.1)
+wait()
 end
+local player = game.Players.LocalPlayer
+local runnin = player.Character.scripts['running']
 runnin.Value = false
 end)
 ShitSection:NewButton("Speed", "Be faster than soneccc",function(s)--https://v3rmillion.net/showthread.php?tid=1151324&pid=8125101
@@ -173,14 +175,17 @@ player = game.Players.LocalPlayer --https://v3rmillion.net/showthread.php?tid=11
 if v then
 if player.Character.scripts:FindFirstChild('safe') then
 local old_cf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+if not player.Character.scripts.safe.Value == true then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").spawns.mall.SpawnLocation.CFrame
 wait(1)
+end
 safe = player.Character.scripts.safe
 safe.Parent = nil;
 wait(0.7)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Position = old_cf
 end
 else
+if not player.Character.scripts:FindFirstChild('safe') then
 local old_cf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
 keypress(0x1B) wait()
 keyrelease(0x1B) wait()
@@ -189,6 +194,24 @@ keypress(0x1B) wait()
 keyrelease(0x1B)
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Position = old_cf
+end
+end
+end)
+otherstuff:NewToggle("Auto Flashlight", "kinda useless", function(v)
+_G.flashlight = v
+while _G.flashlight do
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = true
+wait(0.1)
+end
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = false
+end)
+otherstuff:NewToggle("Flickering Flashlight (why would you use this)", "kinda useless", function(v)
+_G.flicker = v
+while _G.flicker do
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = true
+wait()
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = false
+wait()
 end
 end)
 local Main2 = Window:NewTab("Game")
@@ -201,6 +224,7 @@ for __,v in pairs(game.Workspace:GetChildren()) do
 for i,b in pairs(game.Players:GetChildren()) do
 if b.Name==game.Players.LocalPlayer.Name then local skip else
 if b.Name == v.Name then
+    --print(v,Name, math.floor(v:DistanceFromCharacter(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)))
     if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end
     local a = Instance.new("BillboardGui",v)
     a.Name = "ESP"
@@ -338,8 +362,58 @@ for i,v in pairs(game.Workspace:GetDescendants()) do
     v:Destroy()
 end end end)
 GameSection2:NewButton("Lower graphics", "if u run on a potato", function(v)
+for i,v in pairs(game.workspace:GetDescendants()) do
+if v.ClassName == 'Part' then v.Material = 'SmoothPlastic'
+end
+end
+end)
+GameSection2:NewToggle("Lights (for scawwy gameplay)", "turn on or off electricity", function(light)
+_G.LIGHT = light
+num = 0
+while _G.LIGHT do
+if num == 0 then
+game:GetService("Workspace").ambience.BlackoutEnd.Playing = true
+game:GetService("Workspace").ambience.BlackoutAmbience.Playing = false
+game:GetService("Workspace").ambience.BlackoutJingle.Playing = true
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = false
+end
+num = num + 1
+wait(0.1)
+--[[
+if v.Name == 'light' and v:FindFirstChild('SurfaceGui') then
+v.Enabled = true
+elseif v.Name == 'ceiling_light' then
+for __,c in pairs(v.light:GetChildren()) do
+c.Material = 'Neon' 
+end
+else]]
 for i,v in pairs(game.Workspace:GetDescendants()) do
-if v.ClassName == 'Texture' then v:Destroy() end
+if  v.Name == 'PointLight' then
+v.Enabled = true
+end  
+end
+end
+while not _G.LIGHT do
+if num == 0 then
+game:GetService("Workspace").ambience.Blackout.Playing = true
+game:GetService("Workspace").ambience.BlackoutAmbience.Playing = true
+game:GetService("Workspace").ambience.BlackoutJingle.Playing = false
+game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = true
+end
+num = num + 1
+wait(0.1)
+for i,v in pairs(game.Workspace:GetDescendants()) do
+--[[
+if v.Name == 'light' and v:FindFirstChild('SurfaceGui') then
+v.Enabled = false
+elseif v.Name == 'ceiling_light' then
+for __,c in pairs(v.light:GetChildren()) do
+c.Material = 'SmoothPlastic'
+end
+else]]if  v.Name == 'PointLight' then
+v.Enabled = false
+end  
+end
 end
 end)
 GameSection2:NewToggle("FullBright", "magic hahahe", function(v)--https://v3rmillion.net/showthread.php?tid=886276
@@ -455,6 +529,6 @@ end)
 local Main3 = Window:NewTab("Info")
 local ShitSection3 = Main3:NewSection("Made by Darijus#1071")
 local ShitSection3 = Main3:NewSection("Latest update: 8/4/2022")
-local ShitSection3 = Main3:NewSection("Update: Fixed autorun")
+local ShitSection3 = Main3:NewSection("Update: Added lights")
 
 end
