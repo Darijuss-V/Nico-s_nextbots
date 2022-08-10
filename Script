@@ -1,7 +1,7 @@
 
 
 --yes this is skidded i just had nothing to do so i put this toghether and tried to remember links to skidded portions of the script PS:I'm 12 so dont hate on me iv'e been scripting for like 2 years
---last update: 8/4/2022
+--last update: 8/10/2022
 
 
 if game.PlaceId == 10118559731 then
@@ -14,106 +14,90 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Nico's Nextbots scrept | Darijus#1071", "Sentinel")
 local Main = Window:NewTab("LocalPlayer")
 local ShitSection = Main:NewSection("Stuff for u")
-ShitSection:NewToggle("AutoRun", "just hold shift lol",function(v)
+ShitSection:NewToggle("Unlock(gives god)(for bhop and else)", "just hold shift lol",function(v)
+if v then
+game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait()
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait()
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+wait(4.85)
+pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+wait(.4)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+else
+local old_cf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+keypress(0x1B) wait()
+keyrelease(0x1B) wait()
+game:GetService("ReplicatedStorage").events.respawnchar:FireServer()
+keypress(0x1B) wait()
+keyrelease(0x1B)
+wait(2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Position = old_cf
+end
+end)
+ShitSection:NewButton("Unlock movement", "auughhh", function(v)
+for i,v in pairs(game.workspace:GetChildren()) do
+if v.Name == game.Players.LocalPlayer.Name then
+if v:FindFirstChild('Humanoid') then
+v.Humanoid.WalkSpeed = 25.84
+v.Humanoid.CameraOffset = Vector3.new(0,0,-1.5)
+v.Humanoid.JumpPower = 40
+end
+end
+end
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
+if not gameProcessedEvent then
+if input.UserInputType == Enum.UserInputType.Keyboard then
+if input.KeyCode == Enum.KeyCode.Space then
+for i,v in pairs(game.workspace:GetChildren()) do
+if v.Name == game.Players.LocalPlayer.Name then
+if v:FindFirstChild('Humanoid') then
+v.Humanoid.Jump=true
+end
+end
+end
+elseif input.KeyCode == Enum.KeyCode.LeftControl or input.KeyCode == Enum.KeyCode.C then
+for i,v in pairs(game.workspace:GetChildren()) do
+if v.Name == game.Players.LocalPlayer.Name then
+if v:FindFirstChild('Humanoid') then
+if v.scripts['running'].Value == true then
+v.scripts.sliding.Value = true end
+end
+end
+end
+end
+end
+end
+end)
+end)
+ShitSection:NewButton("Bhop (WIP) (wont work)", "work in progress", function(v)
+local RS = game:GetService("RunService")
+--RS.RenderStepped:Connect(function()
+_G.bhp = v
+--while _G.bhp do
+
+--keypress(0x20) wait() keyrelease(0x20) wait(1)
+--end
+end)
+ShitSection:NewToggle("AutoRun (won't work if unlocked)", "just hold shift lol",function(v)
+local plr = game:GetService('Players').LocalPlayer
 _G.Autorun = v
 while _G.Autorun do
-local player = game.Players.LocalPlayer
-local runnin = player.Character.scripts['running']
-runnin.Value = true
-wait()
+plr.Character.scripts['running'].Value = true
+wait(1)
 end
-local player = game.Players.LocalPlayer
-local runnin = player.Character.scripts['running']
-runnin.Value = false
+plr.Character.scripts['running'].Value = false
 end)
-ShitSection:NewButton("Speed", "Be faster than soneccc",function(s)--https://v3rmillion.net/showthread.php?tid=1151324&pid=8125101
-walkSpeed = 75
-
-local UIS = game:GetService("UserInputService")
-local RS = game:GetService("RunService")
-local W, A, S, D
-local xVelo, yVelo
-
-RS.RenderStepped:Connect(function()
-   local HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
-   local C = game.Workspace.CurrentCamera
-   local LV = C.CFrame.LookVector
-   for i,v in pairs(UIS:GetKeysPressed()) do
-       if v.KeyCode == Enum.KeyCode.W then
-           W = true
-       end
-       if v.KeyCode == Enum.KeyCode.A then
-           A = true
-       end
-       if v.KeyCode == Enum.KeyCode.S then
-           S = true
-       end
-       if v.KeyCode == Enum.KeyCode.D then
-           D = true
-       end
-   end
-
-   if W == true and S == true then
-       yVelo = false
-       W,S = nil
-   end
-
-   if A == true and D == true then
-       xVelo = false
-       A,D = nil
-   end
-
-   if yVelo ~= false then
-       if W == true then
-           if xVelo ~= false then
-               if A == true then
-                   local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(45), 0)).LookVector
-                   HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
-                   W,A = nil
-               else
-                   if D == true then
-                       local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-45), 0)).LookVector
-                       HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
-                       W,D = nil
-                   end
-               end
-           end
-       else
-           if S == true then
-               if xVelo ~= false then
-                   if A == true then
-                       local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(135), 0)).LookVector
-                       HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
-                       S,A = nil
-                   else
-                       if D == true then
-                           local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-135), 0)).LookVector
-                           HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
-                           S,D = nil
-                       end
-                   end
-               end
-           end
-       end
-   end
-
-   if W == true then
-       HRP.Velocity = Vector3.new((LV.X * walkSpeed), HRP.Velocity.Y, (LV.Z * walkSpeed))
-   end
-   if S == true then
-       HRP.Velocity = Vector3.new(-(LV.X * walkSpeed), HRP.Velocity.Y, -(LV.Z * walkSpeed))
-   end
-   if A == true then
-       local LeftLV = (C.CFrame * CFrame.Angles(0, math.rad(90), 0)).LookVector
-       HRP.Velocity = Vector3.new((LeftLV.X * walkSpeed), HRP.Velocity.Y, (LeftLV.Z * walkSpeed))
-   end
-   if D == true then
-       local RightLV = (C.CFrame * CFrame.Angles(0, math.rad(-90), 0)).LookVector
-       HRP.Velocity = Vector3.new((RightLV.X * walkSpeed), HRP.Velocity.Y, (RightLV.Z * walkSpeed))
-   end
-
-   xVelo, yVelo, W, A, S, D = nil
-end)
+ShitSection:NewButton("Speed ('K'toggle,'-'slower,'='faster)", "Be faster than soneccc",function(s)
+loadstring(game:HttpGet(('https://pastebin.com/raw/AfKeddPG'),true))()--https://v3rmillion.net/showthread.php?tid=753373
 end)
 ---------------------------------------------------------------------------
 ShitSection:NewSlider("Hip height", "u becom tall", 50, 2, function(s)
@@ -127,7 +111,7 @@ ShitSection:NewSlider("Fov", "zoomie", 120, 1, function(fov)
 game.Players.LocalPlayer.PlayerScripts.options.fov.Value = fov
 end)
 ---------------------------------------------------------------------------
-ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont remember thread sorry
+ShitSection:NewButton("Infinite jump(won't work if unlocked)", "PRESS ONLY ONCE", function(v) --dont remember thread sorry
     local Player = game:GetService'Players'.LocalPlayer;
     local UIS = game:GetService'UserInputService';
     _G.JumpHeight = 50;
@@ -135,7 +119,7 @@ ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont rem
     UIS.InputBegan:connect(function(UserInput)
         if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
             Action(Player.Character.Humanoid, function(self)
-                if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.FreeFall then
                     Action(self.Parent.HumanoidRootPart, function(self)
                         self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
                     end)
@@ -145,6 +129,30 @@ ShitSection:NewButton("Infinite jump", "PRESS ONLY ONCE", function(v) --dont rem
     end)
 end)
 local otherstuff = Main:NewSection("Other stuff")
+otherstuff:NewButton("Fly (E) (glitchy)", "kill u fest boi", function(v)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LegitH3x0R/Roblox-Scripts/main/AEBypassing/CFrameFly.lua"))()
+game.Players.LocalPlayer.Character.Humanoid.Died:connect(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LegitH3x0R/Roblox-Scripts/main/AEBypassing/CFrameFly.lua"))()
+end)
+end)
+otherstuff:NewToggle("Quick respawn after death", "niauuuuuuuuuuuuuuw", function(v)
+_G.quickboi = v
+while _G.quickboi do
+for __,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == game.Players.LocalPlayer.Name then
+if v:FindFirstChild('Humanoid') then
+if v.Humanoid.Health <= 0 then
+wait(1)
+game:GetService("ReplicatedStorage").events.respawnchar:FireServer()
+wait(2)
+keypress(0x46) wait() keyrelease(0x46)
+end
+end
+end
+end
+wait()
+end
+end)
 otherstuff:NewButton("Quick reset (R)", "kill u fest boi", function(v)
 local UserInputService = game:GetService("UserInputService")
 UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
@@ -163,12 +171,24 @@ UserInputService.InputBegan:Connect(function(input,gameProcessedEvent)
             end
         end)
 end)
-otherstuff:NewButton("Farm spot (to go back press button under)", "idk bro it teleport u", function(v)
+otherstuff:NewButton("Farm spot(to go back press button under)", "idk bro it teleport u", function(v)
 save_CFRAME = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(186.406494140625, 102.73624420166016, 295.02508544921875)
 end)
-otherstuff:NewButton("Go back (Farm)", "idk bro it teleport u", function(v)
+otherstuff:NewButton("Go back(Farm)", "idk bro it teleport u", function(v)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = save_CFRAME
+end)
+otherstuff:NewToggle("Autofarm time", "idk", function(v)
+_G.autofarm = v
+local old_cf = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(186.406494140625, 102.73624420166016, 295.02508544921875)
+while _G.autofarm do
+game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(149.20252990722656, 103.04377746582031, 391.72296142578125))
+wait(10)
+game.Players.LocalPlayer.Character.Humanoid:MoveTo(Vector3.new(170.00933837890625, 103.04377746582031, 162.31370544433594))
+wait(10)
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.Position = old_cf
 end)
 otherstuff:NewToggle("Monster not chase u", "kinda useless", function(v)
 player = game.Players.LocalPlayer --https://v3rmillion.net/showthread.php?tid=1179524
@@ -198,19 +218,22 @@ end
 end
 end)
 otherstuff:NewToggle("Auto Flashlight", "kinda useless", function(v)
-_G.flashlight = v
-while _G.flashlight do
-game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = true
-wait(0.1)
+_G.verynaic = v
+while _G.verynaic do
+local plr = game:GetService('Players').LocalPlayer
+path_to = plr.PlayerGui.engine.flv2.flashlight
+path_to.Value = true
+wait()
 end
 game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = false
 end)
-otherstuff:NewToggle("Flickering Flashlight (why would you use this)", "kinda useless", function(v)
+otherstuff:NewToggle("Flickering Flashlight(why would you use this)", "kinda useless", function(v)
 _G.flicker = v
+local plr = game:GetService('Players').LocalPlayer
 while _G.flicker do
-game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = true
+plr.PlayerGui.engine.flv2.flashlight.Value = true
 wait()
-game.Players.LocalPlayer.PlayerGui.engine.flv2.flashlight.Value = false
+plr.PlayerGui.engine.flv2.flashlight.Value = false
 wait()
 end
 end)
@@ -355,7 +378,9 @@ sukanikadig
 ]]
 local GameSection2 = Main2:NewSection("Delete stuff and other")
 GameSection2:NewButton("Delete doors", "magic hahahe", function(v)
-game:GetService("Workspace").doors:Destroy() game:GetService("Workspace").junk:Destroy() end)
+game:GetService("Workspace").doors:Destroy() 
+game:GetService("Workspace").junk:Destroy()
+end)
 GameSection2:NewButton("Delete garage doors", "magic hahahe", function(v)
 for i,v in pairs(game.Workspace:GetDescendants()) do
     if v.Name == 'garage' then
@@ -528,7 +553,7 @@ loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield
 end)
 local Main3 = Window:NewTab("Info")
 local ShitSection3 = Main3:NewSection("Made by Darijus#1071")
-local ShitSection3 = Main3:NewSection("Latest update: 8/4/2022")
-local ShitSection3 = Main3:NewSection("Update: Added lights")
+local ShitSection3 = Main3:NewSection("Latest update: 8/10/2022")
+local ShitSection3 = Main3:NewSection("Update: Won't fit here")
 
 end
