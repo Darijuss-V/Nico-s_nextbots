@@ -21,7 +21,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Nico's Nextbots scrept | Darijus#1071", "Sentinel")
 local Main = Window:NewTab("LocalPlayer")
 local ShitSection = Main:NewSection("Stuff for u")
-ShitSection:NewToggle("Unlock(gives god)(for bhop and else)", "just hold shift lol",function(v)
+ShitSection:NewToggle("Unlock(gives god)(for bhop and else)", "idk",function(v)
 if v then
 game.Players.LocalPlayer.Character.Humanoid.Name = 1
 local l = game.Players.LocalPlayer.Character["1"]:Clone()
@@ -103,7 +103,7 @@ wait(1)
 end
 plr.Character.scripts['running'].Value = false
 end)
-ShitSection:NewButton("Speed ('K'toggle,'-'slower,'='faster)", "Be faster than soneccc",function(s)
+ShitSection:NewButton("Speed ('Shift'boost,'K'toggle,'-'slower,'='faster)", "Be faster than soneccc",function(s)
 loadstring(game:HttpGet(('https://pastebin.com/raw/AfKeddPG'),true))()--https://v3rmillion.net/showthread.php?tid=753373
 end)
 ---------------------------------------------------------------------------
