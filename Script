@@ -8,7 +8,7 @@
 ]]
 
 --yes this is skidded i just had nothing to do so i put this toghether and tried to remember links to skidded portions of the script PS:I'm 12 so dont hate on me iv'e been scripting for like 2 years
---last update: 8/10/2022
+--last update: 8/12/2022
 
 
 if game.PlaceId == 10118559731 then
@@ -21,7 +21,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHept
 local Window = Library.CreateLib("Nico's Nextbots scrept | Darijus#1071", "Sentinel")
 local Main = Window:NewTab("LocalPlayer")
 local ShitSection = Main:NewSection("Stuff for u")
-ShitSection:NewToggle("Unlock(gives god)(for bhop and else)", "idk",function(v)
+ShitSection:NewToggle("Unlock(gives god)(for bhop and else)", "just hold shift lol",function(v)
 if v then
 game.Players.LocalPlayer.Character.Humanoid.Name = 1
 local l = game.Players.LocalPlayer.Character["1"]:Clone()
@@ -103,7 +103,7 @@ wait(1)
 end
 plr.Character.scripts['running'].Value = false
 end)
-ShitSection:NewButton("Speed ('Shift'boost,'K'toggle,'-'slower,'='faster)", "Be faster than soneccc",function(s)
+ShitSection:NewButton("Speed ('K'toggle,'-'slower,'='faster)", "Be faster than soneccc",function(s)
 loadstring(game:HttpGet(('https://pastebin.com/raw/AfKeddPG'),true))()--https://v3rmillion.net/showthread.php?tid=753373
 end)
 ---------------------------------------------------------------------------
@@ -342,9 +342,6 @@ end
 
 end)
 
-
-
-
 ShitSection2:NewToggle("Monster ESP", "magic e-s-p hahahe", function(v)
 _G.monster_esp = v
 while _G.monster_esp do
@@ -378,6 +375,44 @@ end
 wait(0.1)
 end
 for __,v in pairs(game:GetService("Workspace").bots:GetChildren()) do
+if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end end
+end)
+
+ShitSection2:NewToggle("PowerBox ESP", "magic e-s-p hahahe", function(v)
+_G.power_esp = v
+while _G.power_esp do
+local function contains(table, val)
+   for i=1,#table do
+      if table[i] == val then return true end
+   end
+   return false
+end
+for __,v in pairs(game:GetService("Workspace").PowerBox:GetChildren()) do
+    if v:FindFirstChild('Highlight') then
+    if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end
+    local a = Instance.new("BillboardGui",v)
+    a.Name = "ESP"
+    a.Size = UDim2.new(2.7,0, 6.5,0)
+    a.AlwaysOnTop = true
+    local b = Instance.new("Frame",a)
+    b.Size = UDim2.new(1,0, 1,0)
+    b.BackgroundTransparency = 0.50
+    b.BorderSizePixel = 0
+    b.BackgroundColor3 = Color3.fromRGB(90,80,255)
+    local c = Instance.new('TextLabel',b)
+    c.Size = UDim2.new(1,1,0,1)
+    c.BorderSizePixel = 2
+    c.TextSize = 8
+    c.Text = v.Name
+    c.BackgroundTransparency = 1
+    c.TextColor3 = Color3.fromRGB(255,255,0)
+    c.TextStrokeColor3 = Color3.fromRGB(73,78,234)
+    c.TextStrokeTransparency = 0.1
+end
+end
+wait(0.1)
+end
+for __,v in pairs(game:GetService("Workspace").PowerBox:GetChildren()) do
 if v:FindFirstChild("ESP") then v:FindFirstChild("ESP"):Destroy() end end
 end)
 --[[ dont look here
@@ -560,8 +595,8 @@ loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield
 end)
 local Main3 = Window:NewTab("Info")
 local ShitSection3 = Main3:NewSection("Made by Darijus#1071")
-local ShitSection3 = Main3:NewSection("Latest update: 8/10/2022")
-local ShitSection3 = Main3:NewSection("Update: Won't fit here")
+local ShitSection3 = Main3:NewSection("Latest update: 8/12/2022")
+local ShitSection3 = Main3:NewSection("Update: Added PowerBox ESP")
 local number = math.random(1,15)
 if number == math.random(1,15) or number == math.random(1,15) then
 warn('---------------------------------------------------------------------------------------------')
