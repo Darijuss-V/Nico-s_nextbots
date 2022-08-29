@@ -1,5 +1,5 @@
 --game:GetService("ReplicatedStorage").events.ban:FireServer()
---game.Players.LocalPlayer:Kick('as be triusiku')
+game.Players.LocalPlayer:Kick('as be triusiku')
 --[[
 ███╗░░██╗██╗░█████╗░░█████╗░██╗░██████╗  ░██████╗██╗░░██╗██╗████████╗██████╗░░█████╗░██╗░░██╗
 ████╗░██║██║██╔══██╗██╔══██╗╚█║██╔════╝  ██╔════╝██║░░██║██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗██╔╝
