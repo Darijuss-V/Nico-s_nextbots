@@ -614,6 +614,7 @@ print('Script - your number is: '..number..', better luck next time C:')
 print('--------------------------------------------------------------------------------------------------------------')
 end
 warn('--------------------------------------------------------------------------------------------------------------')
-warn('donation: https://www.roblox.com/games/6212889408/Ye-ye#!/store')
+warn('donation: https://www.roblox.com/games/6212889408/Ye-ye#!/store (CLIPBOARDED)')
 warn('--------------------------------------------------------------------------------------------------------------')
+setclipboard('https://www.roblox.com/games/6212889408/Ye-ye#!/store')
 end
